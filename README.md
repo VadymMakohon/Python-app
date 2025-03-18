@@ -43,3 +43,12 @@ No additional installation is required. Ensure you have Python installed, then p
 ### License
 
 This project is open-source and has a MIT license. Feel free to modify and distribute it as needed.
+
+### Show your support
+
+Give a ⭐ if you like these projects!
+
+# Contributors
+
+- [Vadym Makohon](https://github.com/VadymMakohon)
+
