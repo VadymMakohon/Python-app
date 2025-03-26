@@ -1,46 +1,60 @@
 import tkinter as tk
 from tkinter import messagebox
 
-class SimpleApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Evolving App")
-        self.root.geometry("300x200")
-        self.root.resizable(False, False)
+def on_submit():
+    user_input = entry.get().strip()
+    if user_input:
+        messagebox.showinfo("Message", f"You entered: {user_input}")
+        entry.delete(0, tk.END)  # Clear the input field after submission
+        update_character_count()
+    else:
+        messagebox.showwarning("Warning", "Please enter something!")
 
-        self.label = tk.Label(root, text="Enter something:", font=("Arial", 12))
-        self.label.pack(pady=5)
+def on_clear():
+    entry.delete(0, tk.END)
+    update_character_count()
 
-        self.entry = tk.Entry(root, font=("Arial", 12))
-        self.entry.pack(pady=5)
+def on_exit():
+    if messagebox.askyesno("Exit", "Are you sure you want to exit?"):
+        root.destroy()
 
-        self.button_frame = tk.Frame(root)
-        self.button_frame.pack(pady=10)
+def update_character_count(event=None):
+    count = len(entry.get())
+    counter_label.config(text=f"Character count: {count}")
 
-        self.submit_button = tk.Button(self.button_frame, text="Submit", command=self.on_submit, font=("Arial", 12))
-        self.submit_button.grid(row=0, column=0, padx=5)
+# Create main window
+root = tk.Tk()
+root.title("Enhanced Python App")
+root.geometry("300x220")
+root.resizable(False, False)
 
-        self.clear_button = tk.Button(self.button_frame, text="Clear", command=self.on_clear, font=("Arial", 12))
-        self.clear_button.grid(row=0, column=1, padx=5)
+# Create input field
+label = tk.Label(root, text="Enter something:", font=("Arial", 12))
+label.pack(pady=5)
 
-        self.exit_button = tk.Button(self.button_frame, text="Exit", command=self.on_exit, font=("Arial", 12), fg="red")
-        self.exit_button.grid(row=0, column=2, padx=5)
+entry = tk.Entry(root, font=("Arial", 12))
+entry.pack(pady=5)
+entry.bind("<KeyRelease>", update_character_count)
 
-    def on_submit(self):
-        user_input = self.entry.get().strip()
-        if user_input:
-            messagebox.showinfo("Message", f"You entered: {user_input}")
-            self.entry.delete(0, tk.END)
-        else:
-            messagebox.showwarning("Warning", "Please enter something!")
-    
-    def on_clear(self):
-        self.entry.delete(0, tk.END)
-    
-    def on_exit(self):
-        self.root.destroy()
+# Character count label
+counter_label = tk.Label(root, text="Character count: 0", font=("Arial", 10))
+counter_label.pack(pady=5)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = SimpleApp(root)
-    root.mainloop()
+# Create button frame
+button_frame = tk.Frame(root)
+button_frame.pack(pady=10)
+
+# Create submit button
+submit_button = tk.Button(button_frame, text="Submit", command=on_submit, font=("Arial", 12), bg="lightblue")
+submit_button.grid(row=0, column=0, padx=5)
+
+# Create clear button
+clear_button = tk.Button(button_frame, text="Clear", command=on_clear, font=("Arial", 12), bg="lightgray")
+clear_button.grid(row=0, column=1, padx=5)
+
+# Create exit button
+exit_button = tk.Button(button_frame, text="Exit", command=on_exit, font=("Arial", 12), fg="red", bg="lightcoral")
+exit_button.grid(row=0, column=2, padx=5)
+
+# Run application
+root.mainloop()
