@@ -5,7 +5,7 @@ def on_submit():
     user_input = entry.get().strip()
     if user_input:
         messagebox.showinfo("Message", f"You entered: {user_input}")
-        entry.delete(0, tk.END)  # Clear the input field after submission
+        entry.delete(0, tk.END) 
         update_character_count()
     else:
         messagebox.showwarning("Warning", "Please enter something!")
@@ -24,7 +24,7 @@ def update_character_count(event=None):
 
 root = tk.Tk()
 root.title("Enhanced Python App")
-root.geometry("300x220")
+root.geometry("350x250")
 root.resizable(False, False)
 
 label = tk.Label(root, text="Enter something:", font=("Arial", 12))
